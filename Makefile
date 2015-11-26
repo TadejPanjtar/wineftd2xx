@@ -53,8 +53,8 @@ ftd2xx.o: ftd2xx.c xftd2xx.h WinTypes.h
           -I$(IDIR) -fno-omit-frame-pointer -o $@ ftd2xx.c
 
 ftd2xx.dll.so: ftd2xx.o ftd2xx.spec libxftd2xx.a
-	winegcc $(LIBS) -mwindows -lntdll -lkernel32 \
-          -o ftd2xx.dll ftd2xx.o libxftd2xx.a -shared ftd2xx.spec
+	winegcc -mwindows -lntdll -lkernel32 \
+          -o ftd2xx.dll ftd2xx.o libxftd2xx.a $(LIBS) -shared ftd2xx.spec
 
 libftd2xx.def: ftd2xx.spec ftd2xx.dll.so
 	winebuild -w --def -o $@ --export ftd2xx.spec
